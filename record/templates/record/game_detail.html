@@ -1,0 +1,77 @@
+{% extends 'record/base.html' %}
+
+{% block content %}
+<div class="col-md-8">
+  <h2><a href="{% url 'game_list' %}">Game detail</a></h2>
+</div>
+<br>
+<div>
+  <table class="table table-bordered table-hover table-responsive">
+    <tr>
+      <td class="table-info">Game date</td><td>{{ game.game_date }}</td>
+    </tr>
+    <tr>
+      <td class="table-info">Field</td><td>{{ game.field }}</td>
+    </tr>
+    <tr>
+      <td class="table-info">Rival</td><td><a href="{% url 'rival_detail' game.rival.id %}" class="btn-link">{{ game.rival.team_name }}</a></td>
+    </tr>
+    <tr>
+      <td class="table-info">Score</td><td>{{ game.score }}</td>
+    </tr>
+    <tr>
+      <td class="table-info">Result</td><td>{{ game.result }}</td>
+    </tr>
+    <tr>
+      <td class="table-info">Remark</td><td>{{ game.remark }}</td>
+    </tr>
+    </tr>
+    <tr>
+      <td class="table-info"></td><td><a href="{% url 'game_update' game.id %}" class="btn btn-primary">EditGame</a></td>
+    </tr>
+  </table>
+</div>
+
+<div class="col-md-8">
+  <span class="h2">Stats</span>
+</div>
+<div style="overflow-y:scroll;">
+  <table class="table table-bordered table-hover table-responsive">
+    <tr class="table-success">
+      <th class="text-center">♯</th>
+      <th>Name</th>
+      <th>Goal</th>
+      <th>Assist</th>
+      <th>Intercept</th>
+      <th>Dribble</th>
+      <th>Tuckle</th>
+      <th></th>
+    </tr>
+    {% for stats in statss %}
+    <tr>
+      <td class="text-center">{{ stats.player.sebango }}</td>
+      <td><a href="{% url 'player_detail' stats.player.id %}" class="btn-link">{{ stats.player.name }}</a></td>
+      <td class="text-center">{{ stats.goals }}</td>
+      <td class="text-center">{{ stats.assists }}</td>
+      <td class="text-center">{{ stats.intercepts }}</td>
+      <td class="text-center">{{ stats.dribbles }}</td>
+      <td class="text-center">{{ stats.tuckles }}</td>
+      <td class="text-center"><a href="{% url 'stats_update' stats.id %}" class="btn btn-primary">Edit Stats</a></td>
+    </tr>
+    {% endfor %}
+    <tr class="table-info">
+      <td class="text-center"></td>
+      <td class="text-center">Summary</td>
+      <td class="text-center">{{ summary.goals }}</td>
+      <td class="text-center">{{ summary.assists }}</td>
+      <td class="text-center">{{ summary.intercepts }}</td>
+      <td class="text-center">{{ summary.dribbles }}</td>
+      <td class="text-center">{{ summary.tuckles }}</td>
+      <td class="text-center"></td>
+    </tr>
+  </table>
+</div>
+<div class="col-md-8">
+   <span><a href="{% url 'game_add_stats' game.id %}" class="btn btn-primary">Add Stats</a></span>
+</div>
+{% endblock content %}
